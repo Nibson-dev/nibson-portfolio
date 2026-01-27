@@ -5,13 +5,11 @@
  * @description Interface do Sistema Nexus - Inteligência Financeira e Fiscal.
  * * SYSTEM DESIGN NOTE:
  * O Nexus opera sob uma Arquitetura Orientada a Eventos (Event-Driven).
- * Utilizamos o padrão "Saga" para garantir consistência entre os microserviços
- * de Conciliação Bancária e Validação Tributária.
- * A interface abaixo reflete o estado dos agentes autônomos em tempo real.
+ * Utilizamos o padrão "Saga" para garantir consistência entre os microserviços.
  */
 
 import { motion } from "framer-motion";
-import { ArrowLeft, Lock, BrainCircuit, Server, CheckCircle2, Bot, Sparkles, MessageSquareText, ShieldAlert, Database, Code2, Container, Cpu } from "lucide-react";
+import { ArrowLeft, Lock, Brain, CheckCircle2, Bot, Sparkles, MessageSquare, ShieldAlert, Database, Code2, Box, Cpu, Server } from "lucide-react";
 import Link from "next/link";
 
 // Configuração dos Agentes Autônomos (Simulação de Estado)
@@ -32,7 +30,7 @@ export default function NexusPage() {
           <span className="text-sm">Voltar ao Portfolio</span>
         </Link>
         <div className="flex items-center gap-2 px-3 py-1 border border-violet-500/30 bg-violet-500/10 rounded-full">
-          <BrainCircuit className="w-3 h-3 text-violet-500" />
+          <Brain className="w-3 h-3 text-violet-500" />
           <span className="text-xs text-violet-500 font-bold tracking-wider">AI FINANCIAL CORE</span>
         </div>
       </nav>
@@ -58,13 +56,13 @@ export default function NexusPage() {
           </p>
         </motion.div>
 
-        {/* ARCHITECTURE DIAGRAM (CSS Only) */}
+        {/* ARCHITECTURE DIAGRAM (OS 3 BLOCOS) */}
         <div className="relative mb-32 p-8 border border-white/10 rounded-3xl bg-[#050505] overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-violet-500 to-transparent opacity-20" />
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
                 
-                {/* Microservice 1 */}
+                {/* Microservice 1: Ingestion */}
                 <motion.div 
                     whileHover={{ y: -5 }}
                     className="p-6 rounded-2xl bg-white/5 border border-white/5 flex flex-col items-center text-center group hover:border-violet-500/30 transition-colors"
@@ -79,14 +77,14 @@ export default function NexusPage() {
                     </div>
                 </motion.div>
 
-                {/* Microservice 2 (Core) */}
+                {/* Microservice 2: Nexus Brain (CORE) */}
                 <motion.div 
                     whileHover={{ y: -5 }}
                     className="p-6 rounded-2xl bg-violet-500/5 border border-violet-500/20 flex flex-col items-center text-center relative"
                 >
                     <div className="absolute -top-3 px-3 py-1 bg-violet-500 text-white text-[10px] font-bold rounded-full">CORE LOGIC</div>
                     <div className="w-16 h-16 bg-violet-500/20 rounded-full flex items-center justify-center mb-4 animate-pulse">
-                        <BrainCircuit className="w-8 h-8 text-violet-300" />
+                        <Brain className="w-8 h-8 text-violet-300" />
                     </div>
                     <h3 className="text-white font-bold mb-2">Nexus Brain</h3>
                     <p className="text-xs text-slate-400">Anomaly Detection Models<br/>Cross-Validation Rules</p>
@@ -100,7 +98,7 @@ export default function NexusPage() {
                     </div>
                 </motion.div>
 
-                {/* Microservice 3 */}
+                {/* Microservice 3: Risk Report */}
                 <motion.div 
                     whileHover={{ y: -5 }}
                     className="p-6 rounded-2xl bg-white/5 border border-white/5 flex flex-col items-center text-center group hover:border-violet-500/30 transition-colors"
@@ -121,7 +119,7 @@ export default function NexusPage() {
         {/* FEATURES LIST */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
              {[
-                { icon: Container, title: "Containerized", desc: "Deploy via Docker & Kubernetes para escalabilidade horizontal." },
+                { icon: Box, title: "Containerized", desc: "Deploy via Docker & Kubernetes para escalabilidade horizontal." },
                 { icon: Bot, title: "AI Agents", desc: "Agentes autônomos para leitura de layouts bancários complexos." },
                 { icon: Lock, title: "Zero-Trust", desc: "Segurança de dados financeiros com criptografia em repouso." },
                 { icon: Code2, title: "Clean Architecture", desc: "Separação estrita entre regras de negócio e infraestrutura." }
