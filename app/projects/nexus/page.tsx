@@ -3,16 +3,33 @@
 /**
  * @file NexusPage.tsx
  * @description Interface do Sistema Nexus - Inteligência Financeira e Fiscal.
- * * SYSTEM DESIGN NOTE:
- * O Nexus opera sob uma Arquitetura Orientada a Eventos (Event-Driven).
- * Utilizamos o padrão "Saga" para garantir consistência entre os microserviços.
  */
 
 import { motion } from "framer-motion";
-import { ArrowLeft, Lock, Brain, CheckCircle2, Bot, Sparkles, MessageSquare, ShieldAlert, Database, Code2, Box, Cpu, Server } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Bot, Sparkles, Code2, Box, Lock } from "lucide-react";
 import Link from "next/link";
 
-// Configuração dos Agentes Autônomos (Simulação de Estado)
+// --- ÍCONES HARDCODED (À PROVA DE FALHAS) ---
+// Isso garante que o ícone apareça mesmo se a biblioteca falhar
+const IconDatabase = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 text-violet-400">
+    <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+  </svg>
+);
+
+const IconBrain = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 text-violet-300">
+    <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/>
+  </svg>
+);
+
+const IconShield = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 text-fuchsia-400">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="M12 8v4"/><path d="M12 16h.01"/>
+  </svg>
+);
+
+// Configuração dos Agentes Autônomos
 const AGENT_CONFIG = {
   FISCAL_BOT: { id: "agent_fisc_01", task: "Cross-check NF-e vs SPED", status: "active" },
   BANK_BOT: { id: "agent_bank_02", task: "OFX Statement Reconciliation", status: "active" },
@@ -30,7 +47,7 @@ export default function NexusPage() {
           <span className="text-sm">Voltar ao Portfolio</span>
         </Link>
         <div className="flex items-center gap-2 px-3 py-1 border border-violet-500/30 bg-violet-500/10 rounded-full">
-          <Brain className="w-3 h-3 text-violet-500" />
+          <div className="w-3 h-3"><IconBrain /></div>
           <span className="text-xs text-violet-500 font-bold tracking-wider">AI FINANCIAL CORE</span>
         </div>
       </nav>
@@ -52,23 +69,24 @@ export default function NexusPage() {
             Project <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-fuchsia-500">Nexus</span>
           </h1>
           <p className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-            Ecossistema financeiro autônomo. Agentes inteligentes conciliam extratos bancários e obrigações fiscais, detectando anomalias antes do fechamento contábil.
+            Ecossistema financeiro autônomo. Agentes inteligentes conciliam extratos bancários e obrigações fiscais.
           </p>
         </motion.div>
 
-        {/* ARCHITECTURE DIAGRAM (OS 3 BLOCOS) */}
+        {/* DIAGRAMA DE ARQUITETURA (3 CARTÕES) */}
         <div className="relative mb-32 p-8 border border-white/10 rounded-3xl bg-[#050505] overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-violet-500 to-transparent opacity-20" />
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
                 
-                {/* Microservice 1: Ingestion */}
+                {/* 1. Data Ingestion */}
                 <motion.div 
                     whileHover={{ y: -5 }}
                     className="p-6 rounded-2xl bg-white/5 border border-white/5 flex flex-col items-center text-center group hover:border-violet-500/30 transition-colors"
                 >
                     <div className="w-16 h-16 bg-violet-500/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                        <Database className="w-8 h-8 text-violet-400" />
+                        {/* ÍCONE HARDCODED */}
+                        <IconDatabase />
                     </div>
                     <h3 className="text-white font-bold mb-2">Data Ingestion</h3>
                     <p className="text-xs text-slate-500">ETL Pipelines<br/>OFX & XML Parsers</p>
@@ -77,14 +95,15 @@ export default function NexusPage() {
                     </div>
                 </motion.div>
 
-                {/* Microservice 2: Nexus Brain (CORE) */}
+                {/* 2. Nexus Brain (CORE) */}
                 <motion.div 
                     whileHover={{ y: -5 }}
                     className="p-6 rounded-2xl bg-violet-500/5 border border-violet-500/20 flex flex-col items-center text-center relative"
                 >
                     <div className="absolute -top-3 px-3 py-1 bg-violet-500 text-white text-[10px] font-bold rounded-full">CORE LOGIC</div>
                     <div className="w-16 h-16 bg-violet-500/20 rounded-full flex items-center justify-center mb-4 animate-pulse">
-                        <Brain className="w-8 h-8 text-violet-300" />
+                         {/* ÍCONE HARDCODED */}
+                        <IconBrain />
                     </div>
                     <h3 className="text-white font-bold mb-2">Nexus Brain</h3>
                     <p className="text-xs text-slate-400">Anomaly Detection Models<br/>Cross-Validation Rules</p>
@@ -98,13 +117,14 @@ export default function NexusPage() {
                     </div>
                 </motion.div>
 
-                {/* Microservice 3: Risk Report */}
+                {/* 3. Risk Report */}
                 <motion.div 
                     whileHover={{ y: -5 }}
                     className="p-6 rounded-2xl bg-white/5 border border-white/5 flex flex-col items-center text-center group hover:border-violet-500/30 transition-colors"
                 >
                     <div className="w-16 h-16 bg-fuchsia-500/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                        <ShieldAlert className="w-8 h-8 text-fuchsia-400" />
+                         {/* ÍCONE HARDCODED */}
+                        <IconShield />
                     </div>
                     <h3 className="text-white font-bold mb-2">Risk Report</h3>
                     <p className="text-xs text-slate-500">Fiscal Consistency Check<br/>Real-time Alerts</p>
