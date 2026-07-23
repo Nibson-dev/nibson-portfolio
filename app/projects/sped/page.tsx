@@ -3,11 +3,11 @@
 /**
  * @file SpedPage.tsx
  * @description Apresentação do Motor de Processamento Fiscal.
- * Foco em Arquitetura, Domínio de Negócio e Storytelling.
+ * Foco em Negócios, Fluxo de Processamento e Valor Gerado.
  */
 
 import { motion } from "framer-motion";
-import { ArrowLeft, ArrowDown, FileText, Cpu, Database, BarChart, ShieldCheck, Zap, CheckCircle2, ServerOff, Timer, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowDown, FileText, BarChart, ShieldCheck, Zap, CheckCircle2, ServerOff, Timer, ArrowRight, FileSearch, Layers, Cpu, FileSpreadsheet } from "lucide-react";
 import Link from "next/link";
 
 export default function SpedPage() {
@@ -26,7 +26,7 @@ export default function SpedPage() {
         </div>
       </nav>
 
-      {/* 1. HERO (O Desafio & O Problema) */}
+      {/* 1. HERO (O Desafio) */}
       <section className="pt-40 pb-20 px-4 max-w-4xl mx-auto text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -38,178 +38,188 @@ export default function SpedPage() {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-500">Fiscal SPED</span>
           </h1>
           <p className="text-xl md:text-2xl text-slate-400 leading-relaxed font-light">
-            A análise de arquivos SPED era realizada manualmente, exigindo leitura, conferência e consolidação de centenas de milhares de registros fiscais.
+            A análise de arquivos SPED era realizada manualmente, exigindo leitura, conferência e consolidação de milhares de registros fiscais.
           </p>
-          <div className="mt-8 inline-flex items-center gap-3 px-6 py-3 rounded-full bg-red-500/10 text-red-400 border border-red-500/20">
-            <Timer className="w-5 h-5" />
-            <span>Processo consumia cerca de <strong>1 hora por arquivo</strong>.</span>
+          <div className="mt-8 inline-flex items-center gap-3 px-6 py-3 rounded-full bg-slate-800/50 text-slate-300 border border-white/10">
+            <Timer className="w-5 h-5 text-emerald-500" />
+            <span>Processo anterior consumia cerca de <strong>1 hora por arquivo</strong>.</span>
           </div>
         </motion.div>
       </section>
 
       <div className="max-w-5xl mx-auto px-4 space-y-40 pb-40">
 
-        {/* 2. ARQUITETURA DA SOLUÇÃO */}
+        {/* 2. FLUXO DE PROCESSAMENTO (Diagrama Estilo Figma em Código) */}
         <motion.section 
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           className="text-center"
         >
-          <h2 className="text-3xl font-bold text-white mb-16">Arquitetura da Solução</h2>
+          <h2 className="text-3xl font-bold text-white mb-16">Fluxo de Processamento</h2>
           
-          <div className="flex flex-col items-center gap-4">
-            <div className="w-64 p-4 rounded-xl border border-white/10 bg-white/5 flex items-center justify-center gap-3">
-              <FileText className="text-emerald-400" /> <span className="font-mono text-white">Arquivo SPED (.txt)</span>
-            </div>
-            <ArrowDown className="text-slate-600 w-6 h-6 animate-bounce" />
+          <div className="flex flex-col items-center relative">
             
-            <div className="w-64 p-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 flex items-center justify-center gap-3 shadow-[0_0_30px_rgba(16,185,129,0.1)]">
-              <Cpu className="text-emerald-400" /> <span className="font-bold text-white">Parser & Extrator</span>
+            {/* Step 1 */}
+            <div className="w-72 p-5 rounded-2xl border border-white/10 bg-white/5 flex items-center gap-4 shadow-xl">
+              <div className="p-3 rounded-xl bg-slate-800 text-slate-300"><FileText className="w-6 h-6" /></div>
+              <span className="font-semibold text-white text-lg">Arquivo SPED</span>
             </div>
-            <ArrowDown className="text-slate-600 w-6 h-6" />
-
-            <div className="w-64 p-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 flex items-center justify-center gap-3 shadow-[0_0_30px_rgba(16,185,129,0.1)]">
-              <ShieldCheck className="text-emerald-400" /> <span className="font-bold text-white">Motor de Validação</span>
+            
+            <div className="h-10 w-px bg-gradient-to-b from-white/10 to-emerald-500/50 my-2" />
+            <ArrowDown className="text-emerald-500 w-5 h-5 mb-2" />
+            
+            {/* Step 2 */}
+            <div className="w-72 p-5 rounded-2xl border border-emerald-500/20 bg-emerald-500/5 flex items-center gap-4 shadow-xl">
+              <div className="p-3 rounded-xl bg-emerald-500/20 text-emerald-400"><FileSearch className="w-6 h-6" /></div>
+              <span className="font-semibold text-white text-lg text-left leading-tight">Interpretação dos registros fiscais</span>
             </div>
-            <ArrowDown className="text-slate-600 w-6 h-6" />
 
-            <div className="flex gap-4">
-               <div className="w-48 p-4 rounded-xl border border-white/10 bg-white/5 flex flex-col items-center justify-center gap-2">
-                 <Database className="text-slate-400 w-5 h-5" />
-                 <span className="text-sm text-slate-300">Dataframes (Pandas)</span>
+            <div className="h-10 w-px bg-emerald-500/50 my-2" />
+            <ArrowDown className="text-emerald-500 w-5 h-5 mb-2" />
+
+            {/* Step 3 */}
+            <div className="w-72 p-5 rounded-2xl border border-emerald-500/20 bg-emerald-500/5 flex items-center gap-4 shadow-xl">
+              <div className="p-3 rounded-xl bg-emerald-500/20 text-emerald-400"><Layers className="w-6 h-6" /></div>
+              <span className="font-semibold text-white text-lg text-left leading-tight">Extração dos blocos fiscais</span>
+            </div>
+
+            <div className="h-10 w-px bg-emerald-500/50 my-2" />
+            <ArrowDown className="text-emerald-500 w-5 h-5 mb-2" />
+
+            {/* Step 4 */}
+            <div className="w-72 p-5 rounded-2xl border border-emerald-500/20 bg-emerald-500/5 flex items-center gap-4 shadow-xl">
+              <div className="p-3 rounded-xl bg-emerald-500/20 text-emerald-400"><Cpu className="w-6 h-6" /></div>
+              <span className="font-semibold text-white text-lg text-left leading-tight">Consolidação dos dados</span>
+            </div>
+
+            <div className="h-10 w-px bg-gradient-to-b from-emerald-500/50 to-white/10 my-2" />
+            <ArrowDown className="text-slate-500 w-5 h-5 mb-2" />
+
+            {/* Step 5 & 6 (Outputs) */}
+            <div className="flex gap-6 mt-2">
+               <div className="w-48 p-5 rounded-2xl border border-white/10 bg-white/5 flex flex-col items-center justify-center gap-3 shadow-xl">
+                 <div className="p-3 rounded-xl bg-slate-800 text-slate-300"><FileSpreadsheet className="w-6 h-6" /></div>
+                 <span className="font-semibold text-white">Relatórios</span>
                </div>
-               <div className="w-48 p-4 rounded-xl border border-white/10 bg-white/5 flex flex-col items-center justify-center gap-2">
-                 <BarChart className="text-yellow-400 w-5 h-5" />
-                 <span className="text-sm text-slate-300">Power BI Dashboard</span>
+               <div className="w-48 p-5 rounded-2xl border border-yellow-500/20 bg-yellow-500/5 flex flex-col items-center justify-center gap-3 shadow-xl">
+                 <div className="p-3 rounded-xl bg-yellow-500/20 text-yellow-500"><BarChart className="w-6 h-6" /></div>
+                 <span className="font-semibold text-white">Power BI</span>
                </div>
             </div>
           </div>
         </motion.section>
 
-        {/* 3. ENTENDIMENTO DO DOMÍNIO (Blocos SPED) */}
+        {/* 3. CONHECIMENTO FISCAL (Tabela) */}
         <motion.section 
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
         >
-          <div className="mb-12 text-center">
-             <h2 className="text-3xl font-bold text-white mb-4">Mapeamento de Domínio</h2>
-             <p className="text-slate-400">Compreensão profunda da estrutura de blocos do SPED Fiscal.</p>
+          <div className="mb-12">
+             <h2 className="text-3xl font-bold text-white mb-4">Conhecimento Fiscal</h2>
+             <p className="text-slate-400 text-lg">Estrutura interpretada e mapeamento de domínio.</p>
           </div>
 
-          <div className="max-w-2xl mx-auto bg-[#0f1411] border border-emerald-500/20 rounded-2xl p-8 font-mono shadow-2xl">
-            {[
-              { block: "0000", desc: "Abertura e Informações da Empresa", color: "text-slate-300" },
-              { block: "0150", desc: "Cadastro de Participantes (Clientes/Fornecedores)", color: "text-slate-400" },
-              { block: "C100", desc: "Notas Fiscais (Cabeçalho)", color: "text-emerald-400 font-bold" },
-              { block: "C170", desc: "Itens da Nota Fiscal", color: "text-emerald-300" },
-              { block: "C190", desc: "Registro Analítico (Apuração ICMS)", color: "text-teal-400" },
-              { block: "E100", desc: "Período de Apuração", color: "text-slate-400" },
-              { block: "E110", desc: "Valores Finais e Saldos", color: "text-amber-400" },
-            ].map((item, index) => (
-              <div key={item.block} className="flex flex-col relative">
-                <div className="flex items-center gap-6 py-4 z-10 bg-[#0f1411]">
-                  <div className={`w-16 text-right text-xl ${item.color}`}>{item.block}</div>
-                  <div className="w-4 h-4 rounded-full bg-emerald-500/20 border border-emerald-500/50 flex-shrink-0" />
-                  <div className={`text-sm md:text-base ${item.color}`}>{item.desc}</div>
-                </div>
-                {/* Linha conectora */}
-                {index < 6 && <div className="absolute left-[87px] top-[40px] bottom-[-20px] w-px bg-emerald-500/20" />}
-              </div>
-            ))}
+          <div className="bg-[#0f1411] border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
+            <table className="w-full text-left text-sm md:text-base">
+              <thead className="bg-white/5 border-b border-white/10">
+                <tr>
+                  <th className="px-6 py-4 font-semibold text-white w-1/3">Bloco</th>
+                  <th className="px-6 py-4 font-semibold text-white">Finalidade</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-white/5">
+                {[
+                  { block: "0000", desc: "Dados da empresa" },
+                  { block: "0150", desc: "Participantes" },
+                  { block: "C100", desc: "Documentos fiscais" },
+                  { block: "C170", desc: "Itens dos documentos" },
+                  { block: "C190", desc: "Apuração ICMS" },
+                  { block: "E100", desc: "Período de apuração" },
+                  { block: "E110", desc: "Totais da apuração" },
+                ].map((item) => (
+                  <tr key={item.block} className="hover:bg-white/5 transition-colors">
+                    <td className="px-6 py-4 font-mono text-emerald-400 font-bold">{item.block}</td>
+                    <td className="px-6 py-4 text-slate-300">{item.desc}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <div className="p-6 bg-emerald-500/5 border-t border-emerald-500/20">
+               <p className="text-emerald-100 text-sm md:text-base leading-relaxed">
+                 O sistema interpreta automaticamente diferentes blocos do arquivo SPED Fiscal, extraindo informações estruturadas para geração de relatórios e apoio à análise.
+               </p>
+            </div>
           </div>
         </motion.section>
 
-        {/* 4. SEGURANÇA (Stateless) */}
+        {/* 4. RESULTADOS (Números Gigantes) */}
         <motion.section 
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
         >
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+               
+               <div className="p-8 rounded-3xl bg-white/5 border border-white/10 text-center hover:border-emerald-500/30 transition-colors">
+                  <h3 className="text-5xl md:text-6xl font-bold text-white mb-4">120<span className="text-emerald-500">+</span></h3>
+                  <p className="text-slate-400 font-medium uppercase tracking-wider text-sm">Arquivos processados / mês</p>
+               </div>
+
+               <div className="p-8 rounded-3xl bg-white/5 border border-white/10 text-center hover:border-emerald-500/30 transition-colors">
+                  <h3 className="text-5xl md:text-6xl font-bold text-white mb-4">120 <span className="text-emerald-500 text-4xl">h</span></h3>
+                  <p className="text-slate-400 font-medium uppercase tracking-wider text-sm">Economizadas por mês</p>
+               </div>
+
+               <div className="p-8 rounded-3xl bg-white/5 border border-white/10 text-center hover:border-emerald-500/30 transition-colors">
+                  <h3 className="text-5xl md:text-6xl font-bold text-white mb-4">100<span className="text-emerald-500">%</span></h3>
+                  <p className="text-slate-400 font-medium uppercase tracking-wider text-sm">Processamento Automatizado</p>
+               </div>
+
+          </div>
+        </motion.section>
+
+        {/* 5. SEGURANÇA (Arquitetura orientada à privacidade) */}
+        <motion.section 
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          className="bg-emerald-950/20 border border-emerald-500/20 rounded-3xl p-8 md:p-12 flex flex-col md:flex-row gap-8 items-center"
+        >
+          <div className="w-20 h-20 shrink-0 rounded-2xl bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20">
+            <ServerOff className="w-10 h-10 text-emerald-400" />
+          </div>
           <div>
-            <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 flex items-center justify-center mb-6 border border-emerald-500/20">
-              <ServerOff className="w-8 h-8 text-emerald-400" />
-            </div>
-            <h2 className="text-3xl font-bold text-white mb-6">Arquitetura Zero-Trust & Stateless</h2>
-            <p className="text-slate-400 text-lg mb-8">
-              Dados fiscais são extremamente sensíveis. O motor foi desenhado para processar em memória, garantindo que nenhum dado de cliente seja persistido em banco de dados.
+            <h2 className="text-3xl font-bold text-white mb-4">Arquitetura orientada à privacidade</h2>
+            <p className="text-slate-300 text-lg leading-relaxed">
+              Os arquivos são processados temporariamente, sem armazenamento persistente, reduzindo drasticamente os riscos relacionados à retenção de dados sensíveis da empresa.
             </p>
           </div>
-          
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-8 space-y-6">
-            {[
-              "Processamento 100% em memória RAM",
-              "Arquitetura Stateless (Sem Banco de Dados)",
-              "Não armazena arquivos pós-processamento",
-              "Validação estrita de input/output",
-              "Redução drástica da superfície de ataque"
-            ].map((text, i) => (
-              <div key={i} className="flex items-center gap-4">
-                <div className="p-1 rounded-full bg-emerald-500/20 text-emerald-400">
-                  <CheckCircle2 className="w-5 h-5" />
-                </div>
-                <span className="text-slate-300">{text}</span>
-              </div>
-            ))}
-          </div>
         </motion.section>
 
-        {/* 5. PERFORMANCE (Antes vs Depois) */}
-        <motion.section 
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-        >
-          <div className="bg-gradient-to-br from-emerald-900/40 to-[#0a0f0d] border border-emerald-500/20 rounded-3xl p-12 text-center">
-            <h2 className="text-3xl font-bold text-white mb-12">Impacto em Performance</h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center justify-center max-w-3xl mx-auto">
-               <div className="p-6 rounded-2xl bg-red-500/5 border border-red-500/10">
-                  <p className="text-slate-500 mb-2 uppercase tracking-wider text-sm">Antes</p>
-                  <p className="text-4xl font-bold text-red-400">1 hora</p>
-                  <p className="text-xs text-red-400/50 mt-2">Por arquivo (Manual)</p>
-               </div>
-
-               <div className="flex justify-center hidden md:flex">
-                  <ArrowRight className="w-10 h-10 text-emerald-500/50" />
-               </div>
-
-               <div className="p-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 relative overflow-hidden">
-                  <div className="absolute top-0 left-0 w-full h-1 bg-emerald-500" />
-                  <p className="text-emerald-500 mb-2 uppercase tracking-wider text-sm font-bold">Depois</p>
-                  <p className="text-5xl font-bold text-white">20 seg</p>
-                  <p className="text-xs text-emerald-400 mt-2">Processamento Autônomo</p>
-               </div>
-            </div>
-
-            <div className="mt-12 inline-block px-6 py-3 rounded-full bg-white/5 border border-white/10 text-slate-300">
-              Escala provada: <strong>120 SPEDs</strong> processados em lote = <strong>120 horas economizadas</strong>.
-            </div>
-          </div>
-        </motion.section>
-
-        {/* 6. LIÇÕES APRENDIDAS */}
+        {/* 6. DESAFIOS TÉCNICOS (Checklist) */}
         <motion.section 
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           className="border-t border-white/10 pt-20"
         >
-          <h2 className="text-2xl font-bold text-white mb-8">Engineering Takeaways</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <h2 className="text-3xl font-bold text-white mb-10 text-center">Desafios Técnicos Solucionados</h2>
+          
+          <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
              {[
-               "Otimização em O(n) para arquivos grandes",
-               "Gestão de memória com Pandas/Chunking",
-               "Clean Architecture em Python",
-               "Segurança By Design (Stateless)",
-               "Modelagem de Dados para BI",
-               "Tradução de Regras de Negócio para Código"
-             ].map((lesson, i) => (
-               <div key={i} className="p-4 rounded-lg bg-white/5 border border-white/5 text-sm text-slate-400 flex items-start gap-3 hover:bg-white/10 transition-colors">
-                  <span className="text-emerald-500 font-mono">{`0${i+1}`}</span>
-                  {lesson}
+               "Processamento de arquivos de grande porte",
+               "Estrutura hierárquica do SPED",
+               "Extração de registros fiscais",
+               "Geração automática de relatórios",
+               "Integração com Power BI",
+               "Arquitetura stateless",
+               "Segurança dos dados"
+             ].map((challenge, i) => (
+               <div key={i} className="flex items-center gap-4 p-2">
+                  <CheckCircle2 className="w-6 h-6 text-emerald-500 shrink-0" />
+                  <span className="text-slate-300 text-lg">{challenge}</span>
                </div>
              ))}
           </div>
