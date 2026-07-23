@@ -1,45 +1,144 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ArrowDown, ArrowRight } from "lucide-react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowDown, ArrowRight, Menu, X } from "lucide-react";
 import Link from "next/link";
 
+const NAV_LINKS = [
+  { label: "Início", href: "/" },
+  { label: "Experiência", href: "/experience" },
+  { label: "Projetos", href: "/projects" },
+  { label: "Formação", href: "/certifications" },
+  { label: "Sobre", href: "/about" },
+];
+
+const WORKFLOW = [
+  { step: "01", title: "Entender", desc: "Compreender o processo, suas limitações e o problema que precisa ser resolvido." },
+  { step: "02", title: "Planejar", desc: "Organizar os dados, as etapas do fluxo e a estrutura da solução." },
+  { step: "03", title: "Desenvolver", desc: "Construir ferramentas que reduzam tarefas repetitivas e erros manuais." },
+  { step: "04", title: "Validar", desc: "Conferir os resultados, medir os ganhos e identificar melhorias." }
+];
+
+const FEATURED_PROJECTS = [
+  { 
+    title: "Automação de SPED Fiscal", 
+    subtitle: "Projeto desenvolvido para a Vale",
+    desc: "Plataforma web para processar arquivos fiscais e preparar dados para análise, reduzindo uma rotina manual de aproximadamente duas horas para poucos segundos.", 
+    link: "/projects/sped",
+    techs: ["Python", "FastAPI", "TypeScript", "Power BI"]
+  },
+  { 
+    title: "Nexus", 
+    subtitle: "Projeto pessoal",
+    desc: "Aplicação mobile para organização financeira, criada para explorar o ecossistema Flutter, gerenciamento de estado e estruturação de dados.", 
+    link: "/projects/nexus",
+    techs: ["Flutter", "Dart", "State Management"]
+  },
+  { 
+    title: "NavegaRio", 
+    subtitle: "Projeto em desenvolvimento",
+    desc: "Protótipo de plataforma para reunir dados de maré, clima, alertas e condições de navegação na região amazônica.", 
+    link: "", // Vazio = card não clicável
+    techs: ["FastAPI", "React", "Leaflet"]
+  }
+];
+
 export default function Home() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Trava o scroll quando o menu mobile está aberto
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [isMobileMenuOpen]);
+
   return (
-    <main className="min-h-screen bg-[#050505] text-slate-300 font-sans selection:bg-emerald-500/30">
+    <main className="min-h-[100dvh] bg-[#050505] text-slate-300 font-sans selection:bg-emerald-500/30">
       
       {/* NAVEGAÇÃO CORPORATIVA */}
       <nav className="fixed top-0 left-0 w-full z-50 px-6 py-6 flex justify-between items-center bg-[#050505]/80 backdrop-blur-md border-b border-white/5">
-        <Link href="/" className="text-white font-bold text-lg tracking-tighter">
+        <Link href="/" className="text-white font-bold text-lg tracking-tighter z-50">
           NIBSON MÜLLER
         </Link>
+        
+        {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
-          <Link href="/" className="text-white">Home</Link>
-          <Link href="/experience" className="hover:text-emerald-400 transition-colors">Experience</Link>
-          <Link href="/projects" className="hover:text-emerald-400 transition-colors">Projects</Link>
-          <Link href="/certifications" className="hover:text-emerald-400 transition-colors">Learning</Link>
-          <Link href="/about" className="hover:text-emerald-400 transition-colors">About</Link>
+          {NAV_LINKS.map(link => (
+            <Link key={link.label} href={link.href} className="hover:text-emerald-400 transition-colors">
+              {link.label}
+            </Link>
+          ))}
         </div>
-        <Link href="/contact" className="px-5 py-2 text-sm font-medium text-white bg-white/10 hover:bg-white/20 rounded-full transition-colors">
-          Contact
-        </Link>
+        
+        <div className="hidden md:block z-50">
+          <Link href="/contact" className="px-5 py-2 text-sm font-medium text-white bg-white/10 hover:bg-white/20 rounded-full transition-colors">
+            Contato
+          </Link>
+        </div>
+
+        {/* Mobile Menu Button */}
+        <button 
+          className="md:hidden z-50 text-white p-2"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle Menu"
+        >
+          {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </button>
       </nav>
 
-      {/* 1. HERO (Apenas a essência) */}
-      <section className="h-screen flex flex-col items-center justify-center px-4 text-center relative">
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-40 bg-[#050505] flex flex-col items-center justify-center gap-8 md:hidden"
+          >
+            {NAV_LINKS.map(link => (
+              <Link 
+                key={link.label} 
+                href={link.href} 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-2xl font-medium text-white hover:text-emerald-400 transition-colors"
+              >
+                {link.label}
+              </Link>
+            ))}
+            <Link 
+              href="/contact" 
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="mt-4 px-8 py-3 text-lg font-medium text-[#050505] bg-emerald-500 rounded-full transition-colors"
+            >
+              Contato
+            </Link>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* 1. HERO (Genuíno e Direto) */}
+      <section className="min-h-[100dvh] flex flex-col items-center justify-center px-4 text-center relative pt-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-4xl"
         >
-          <h2 className="text-sm md:text-base text-slate-500 tracking-[0.3em] uppercase font-semibold mb-8">
-            NIBSON MÜLLER
-          </h2>
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white tracking-tighter leading-[1.1]">
-            Building software that solves <br className="hidden md:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-400 to-slate-600">real engineering problems.</span>
+          <p className="text-xs md:text-sm text-slate-500 tracking-[0.2em] md:tracking-[0.3em] uppercase font-semibold mb-8">
+            Engenharia Elétrica • Software • Automação
+          </p>
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-tighter leading-[1.1] mb-8">
+            Desenvolvo software para resolver <br className="hidden md:block" />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-500">problemas reais de engenharia.</span>
           </h1>
+          <p className="text-base md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
+            Estudante de Engenharia Elétrica na UFPA, desenvolvendo projetos em automação, dados, sistemas embarcados e segurança.
+          </p>
         </motion.div>
 
         <motion.div 
@@ -48,28 +147,27 @@ export default function Home() {
           transition={{ delay: 1.5, duration: 1 }}
           className="absolute bottom-12 flex flex-col items-center gap-3 text-slate-600"
         >
-          <span className="text-[10px] uppercase tracking-widest font-bold">Explore</span>
-          <ArrowDown className="w-4 h-4 animate-bounce" />
+          <ArrowDown className="w-5 h-5 animate-bounce" />
         </motion.div>
       </section>
 
-      {/* 2. O PRIMEIRO RESPIRO (A Filosofia 1) */}
-      <section className="h-[70vh] flex flex-col items-center justify-center px-4 text-center">
+      {/* 2. O RESPIRO (A Filosofia) */}
+      <section className="min-h-[60dvh] flex flex-col items-center justify-center px-4 text-center">
         <motion.h2
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1.5 }}
-          className="text-3xl md:text-5xl font-medium text-slate-400 max-w-4xl leading-tight tracking-tight"
+          className="text-2xl md:text-4xl lg:text-5xl font-medium text-slate-400 max-w-4xl leading-tight tracking-tight"
         >
-          I believe software should <span className="text-white">reduce complexity</span>, not create it.
+          Para mim, uma boa solução começa pela compreensão do problema — <span className="text-white">não pela escolha da tecnologia.</span>
         </motion.h2>
       </section>
 
-      {/* 3. A SEQUÊNCIA (Engineering -> Software -> Automation -> Impact) */}
-      <section className="py-40 px-4 bg-[#0a0a0a]">
-        <div className="flex flex-col items-center justify-center text-5xl md:text-8xl font-black tracking-tighter uppercase space-y-4">
-          {["Engineering.", "Software.", "Automation.", "Impact."].map((word, i) => (
+      {/* 3. A SEQUÊNCIA (O Processo) */}
+      <section className="py-32 px-4 bg-[#0a0a0a]">
+        <div className="flex flex-col items-center justify-center text-4xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase space-y-4">
+          {["Engenharia.", "Software.", "Automação.", "Resultado."].map((word, i) => (
             <motion.div
               key={word}
               initial={{ opacity: 0, y: 30 }}
@@ -87,27 +185,17 @@ export default function Home() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 1, delay: 1.2 }}
-            className="pt-16 text-lg md:text-2xl font-medium text-slate-500 tracking-normal lowercase"
+            className="pt-16 text-lg md:text-xl font-medium text-slate-500 tracking-normal"
           >
-            This is how I build solutions.
+            É assim que desenvolvo cada projeto.
           </motion.div>
         </div>
       </section>
 
-      {/* 4. O FLUXO DE PENSAMENTO (Com a linha animada crescendo) */}
+      {/* 4. O FLUXO DE TRABALHO */}
       <section className="py-40 px-4">
         <div className="max-w-4xl mx-auto">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            className="text-2xl md:text-4xl font-bold text-white text-center mb-32 tracking-tight"
-          >
-            Every project starts with <span className="text-emerald-500">understanding the problem</span> <br className="hidden md:block" />
-            before choosing the technology.
-          </motion.h2>
-
-          <div className="relative ml-4 md:mx-auto md:w-full max-w-lg">
+          <div className="relative ml-4 md:mx-auto md:w-full max-w-lg mt-16">
             {/* Linha Vertical Animada */}
             <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-white/5 md:-translate-x-1/2" />
             <motion.div 
@@ -119,12 +207,7 @@ export default function Home() {
             />
 
             {/* Os Passos */}
-            {[
-              { step: "01", title: "Understand", desc: "Mapeamento profundo do gargalo operacional e da regra de negócio." },
-              { step: "02", title: "Design", desc: "Desenho da arquitetura de dados e do fluxo de processamento." },
-              { step: "03", title: "Automate", desc: "Desenvolvimento do software para substituir rotinas manuais." },
-              { step: "04", title: "Measure", desc: "Validação do impacto gerado através de métricas e dashboards." }
-            ].map((item, i) => (
+            {WORKFLOW.map((item, i) => (
               <motion.div 
                 key={item.title}
                 initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
@@ -145,91 +228,65 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. O SEGUNDO RESPIRO (A Assinatura) */}
-      <section className="h-[70vh] flex flex-col items-center justify-center px-4 text-center bg-emerald-950/10">
-        <motion.h2
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="text-4xl md:text-6xl lg:text-7xl font-bold text-white max-w-5xl leading-tight tracking-tighter"
-        >
-          Transforming complex processes into <br className="hidden md:block"/>
-          <span className="text-emerald-500">reliable systems.</span>
-        </motion.h2>
-      </section>
-
-      {/* 6. A PROVA (Featured Projects unificados) */}
-      <section className="py-40 px-4">
+      {/* 5. A PROVA (Featured Projects) */}
+      <section className="py-32 px-4 bg-[#0a0a0a]">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
             <div>
-              <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight mb-4">Featured Work</h2>
-              <p className="text-slate-400">The application of the methodology in real environments.</p>
+              <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight mb-4">Projetos em destaque</h2>
+              <p className="text-slate-400">Alguns projetos em que apliquei software, automação e engenharia a problemas práticos.</p>
             </div>
             <Link href="/projects" className="flex items-center gap-2 text-sm font-bold text-white hover:text-emerald-400 transition-colors pb-1">
-              Explore all projects <ArrowRight className="w-4 h-4" />
+              Ver todos os projetos <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { 
-                title: "ConciliadorVALE", 
-                subtitle: "Motor SPED",
-                desc: "Plataforma corporativa que automatiza a extração e conciliação de mais de 120 arquivos fiscais por mês.", 
-                link: "/projects/sped",
-                techs: ["Python", "FastAPI", "React"]
-              },
-              { 
-                title: "Project Nexus", 
-                subtitle: "Financial Ecosystem",
-                desc: "Ecossistema mobile com arquitetura orientada a eventos para garantir consistência de fluxo de caixa.", 
-                link: "/projects/nexus",
-                techs: ["Flutter", "Dart", "Event-Driven"]
-              },
-              { 
-                title: "NavegaRio", 
-                subtitle: "Logistics Data",
-                desc: "Arquitetura de dados para mapeamento e otimização de rotas e mobilidade fluvial na região amazônica.", 
-                link: "#",
-                techs: ["Architecture", "GIS", "Data Modeling"]
-              }
-            ].map((project, i) => (
-              <motion.div
-                key={project.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ delay: i * 0.1, duration: 0.6 }}
-              >
-                <Link href={project.link} className={`block p-8 rounded-3xl bg-[#0a0a0a] border border-white/5 hover:border-white/20 transition-all h-full flex flex-col justify-between group ${project.link === '#' ? 'cursor-default' : 'cursor-pointer'}`}>
-                  <div>
-                    <span className="text-[10px] uppercase tracking-widest text-emerald-500 font-bold mb-3 block">{project.subtitle}</span>
-                    <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-emerald-400 transition-colors tracking-tight">{project.title}</h3>
-                    <p className="text-slate-500 text-sm leading-relaxed mb-8">{project.desc}</p>
-                  </div>
-                  <div>
-                    <div className="flex gap-2 flex-wrap mb-6">
-                       {project.techs.map(tech => (
-                         <span key={tech} className="px-2 py-1 bg-white/5 border border-white/10 rounded text-[10px] text-slate-400 uppercase tracking-wider">{tech}</span>
-                       ))}
+            {FEATURED_PROJECTS.map((project, i) => {
+              const CardWrapper = project.link ? Link : "div";
+              const wrapperProps = project.link ? { href: project.link } : {};
+
+              return (
+                <motion.div
+                  key={project.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ delay: i * 0.1, duration: 0.6 }}
+                >
+                  <CardWrapper 
+                    {...wrapperProps} 
+                    className={`block p-8 rounded-3xl bg-[#0f0f0f] border border-white/5 transition-all h-full flex flex-col justify-between group ${project.link ? 'hover:border-white/20 cursor-pointer' : 'cursor-default'}`}
+                  >
+                    <div>
+                      <span className="text-[10px] uppercase tracking-widest text-emerald-500 font-bold mb-3 block">{project.subtitle}</span>
+                      <h3 className={`text-2xl font-bold text-white mb-4 tracking-tight ${project.link ? 'group-hover:text-emerald-400 transition-colors' : ''}`}>
+                        {project.title}
+                      </h3>
+                      <p className="text-slate-400 text-sm leading-relaxed mb-8">{project.desc}</p>
                     </div>
-                    {project.link !== '#' && (
-                      <span className="text-xs font-bold uppercase tracking-widest text-slate-300 flex items-center gap-2 group-hover:text-white transition-colors">
-                        Case Study <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                      </span>
-                    )}
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
+                    <div>
+                      <div className="flex gap-2 flex-wrap mb-6">
+                         {project.techs.map(tech => (
+                           <span key={tech} className="px-2 py-1 bg-white/5 border border-white/10 rounded text-[10px] text-slate-300 tracking-wider">{tech}</span>
+                         ))}
+                      </div>
+                      {project.link && (
+                        <span className="text-xs font-bold uppercase tracking-widest text-slate-300 flex items-center gap-2 group-hover:text-white transition-colors">
+                          Estudo de Caso <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        </span>
+                      )}
+                    </div>
+                  </CardWrapper>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* 7. CTA (A Chamada Emocional) */}
-      <section className="py-40 px-4 border-t border-white/5 bg-[#0a0a0a] text-center">
+      {/* 6. CTA FINAL */}
+      <section className="py-40 px-4 border-t border-white/5 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -237,11 +294,11 @@ export default function Home() {
           transition={{ duration: 0.8 }}
           className="max-w-3xl mx-auto"
         >
-          <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tighter mb-10 leading-tight">
-            Let's solve complex <br className="hidden md:block"/> engineering problems together.
+          <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tighter mb-10 leading-tight">
+            Aberto a oportunidades de estágio, <br className="hidden md:block"/> pesquisa e novos projetos.
           </h2>
-          <Link href="/contact" className="inline-flex px-8 py-4 rounded-full bg-white text-black font-bold hover:bg-slate-200 transition-colors text-sm uppercase tracking-widest">
-            Contact Me
+          <Link href="/contact" className="inline-flex px-8 py-4 rounded-full bg-white text-[#050505] font-bold hover:bg-slate-200 transition-colors text-sm uppercase tracking-widest">
+            Entrar em contato
           </Link>
         </motion.div>
       </section>
