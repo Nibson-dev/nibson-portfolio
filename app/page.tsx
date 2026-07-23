@@ -243,8 +243,31 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {FEATURED_PROJECTS.map((project, i) => {
-              const CardWrapper = project.link ? Link : "div";
-              const wrapperProps = project.link ? { href: project.link } : {};
+              const cardClasses = `block p-8 rounded-3xl bg-[#0f0f0f] border border-white/5 transition-all h-full flex flex-col justify-between group ${project.link ? 'hover:border-white/20 cursor-pointer' : 'cursor-default'}`;
+
+              const cardContent = (
+                <>
+                  <div>
+                    <span className="text-[10px] uppercase tracking-widest text-emerald-500 font-bold mb-3 block">{project.subtitle}</span>
+                    <h3 className={`text-2xl font-bold text-white mb-4 tracking-tight ${project.link ? 'group-hover:text-emerald-400 transition-colors' : ''}`}>
+                      {project.title}
+                    </h3>
+                    <p className="text-slate-400 text-sm leading-relaxed mb-8">{project.desc}</p>
+                  </div>
+                  <div>
+                    <div className="flex gap-2 flex-wrap mb-6">
+                       {project.techs.map(tech => (
+                         <span key={tech} className="px-2 py-1 bg-white/5 border border-white/10 rounded text-[10px] text-slate-300 tracking-wider">{tech}</span>
+                       ))}
+                    </div>
+                    {project.link && (
+                      <span className="text-xs font-bold uppercase tracking-widest text-slate-300 flex items-center gap-2 group-hover:text-white transition-colors">
+                        Estudo de Caso <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      </span>
+                    )}
+                  </div>
+                </>
+              );
 
               return (
                 <motion.div
@@ -254,30 +277,15 @@ export default function Home() {
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ delay: i * 0.1, duration: 0.6 }}
                 >
-                  <CardWrapper 
-                    {...wrapperProps} 
-                    className={`block p-8 rounded-3xl bg-[#0f0f0f] border border-white/5 transition-all h-full flex flex-col justify-between group ${project.link ? 'hover:border-white/20 cursor-pointer' : 'cursor-default'}`}
-                  >
-                    <div>
-                      <span className="text-[10px] uppercase tracking-widest text-emerald-500 font-bold mb-3 block">{project.subtitle}</span>
-                      <h3 className={`text-2xl font-bold text-white mb-4 tracking-tight ${project.link ? 'group-hover:text-emerald-400 transition-colors' : ''}`}>
-                        {project.title}
-                      </h3>
-                      <p className="text-slate-400 text-sm leading-relaxed mb-8">{project.desc}</p>
+                  {project.link ? (
+                    <Link href={project.link} className={cardClasses}>
+                      {cardContent}
+                    </Link>
+                  ) : (
+                    <div className={cardClasses}>
+                      {cardContent}
                     </div>
-                    <div>
-                      <div className="flex gap-2 flex-wrap mb-6">
-                         {project.techs.map(tech => (
-                           <span key={tech} className="px-2 py-1 bg-white/5 border border-white/10 rounded text-[10px] text-slate-300 tracking-wider">{tech}</span>
-                         ))}
-                      </div>
-                      {project.link && (
-                        <span className="text-xs font-bold uppercase tracking-widest text-slate-300 flex items-center gap-2 group-hover:text-white transition-colors">
-                          Estudo de Caso <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                        </span>
-                      )}
-                    </div>
-                  </CardWrapper>
+                  )}
                 </motion.div>
               );
             })}
