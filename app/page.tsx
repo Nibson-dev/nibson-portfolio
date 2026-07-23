@@ -31,7 +31,7 @@ const FEATURED_PROJECTS = [
   { 
     title: "Nexus", 
     subtitle: "Projeto pessoal",
-    desc: "Aplicação mobile para organização financeira, criada para explorar o ecossistema Flutter, gerenciamento de estado e estruturação de dados.", 
+    desc: "Aplicação mobile para gestão financeira e orçamentos, desenvolvida para explorar arquitetura de componentes e gerenciamento de estado com Flutter.", 
     link: "/projects/nexus",
     techs: ["Flutter", "Dart", "State Management"]
   },
@@ -47,13 +47,18 @@ const FEATURED_PROJECTS = [
 export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Trava o scroll quando o menu mobile está aberto
+  // Acessibilidade e prevenção de scroll duplo no mobile
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = "";
     }
+    
+    // Cleanup fundamental para React StrictMode e navegações
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isMobileMenuOpen]);
 
   return (
@@ -80,17 +85,18 @@ export default function Home() {
           </Link>
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Menu Button - A11y aprimorada */}
         <button 
           className="md:hidden z-50 text-white p-2"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label="Toggle Menu"
+          aria-expanded={isMobileMenuOpen}
+          aria-label="Alternar menu de navegação"
         >
-          {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {isMobileMenuOpen ? <X className="w-6 h-6" aria-hidden="true" /> : <Menu className="w-6 h-6" aria-hidden="true" />}
         </button>
       </nav>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu Overlay - Semântica de modal de navegação */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
@@ -99,6 +105,9 @@ export default function Home() {
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
             className="fixed inset-0 z-40 bg-[#050505] flex flex-col items-center justify-center gap-8 md:hidden"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Menu Mobile"
           >
             {NAV_LINKS.map(link => (
               <Link 
@@ -195,7 +204,17 @@ export default function Home() {
       {/* 4. O FLUXO DE TRABALHO */}
       <section className="py-40 px-4">
         <div className="max-w-4xl mx-auto">
-          <div className="relative ml-4 md:mx-auto md:w-full max-w-lg mt-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            className="text-center mb-24"
+          >
+            <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight mb-4">Como eu trabalho</h2>
+            <p className="text-slate-400">O processo para transformar necessidades abstratas em soluções reais.</p>
+          </motion.div>
+
+          <div className="relative ml-4 md:mx-auto md:w-full max-w-lg">
             {/* Linha Vertical Animada */}
             <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-white/5 md:-translate-x-1/2" />
             <motion.div 
