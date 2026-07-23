@@ -11,14 +11,14 @@ const ACADEMIC = [
     title: "PIBIC Research Fellowship",
     period: "2026 – Present",
     description: "Research project on modeling and control of a rocket-pendulum system using Webots and embedded systems.",
-    tags: ["Webots", "Control Systems", "Embedded Systems"]
+    tags: ["Webots", "Control Systems", "Embedded Prototyping"]
   },
   {
     id: "ita",
     institution: "Instituto Tecnológico de Aeronáutica (ITA)",
     title: "EFITA — Engineering & Artificial Intelligence",
     period: "2025",
-    description: "Participation in engineering and artificial intelligence courses during the EFITA event.",
+    description: "Participation in short courses on engineering, data science and artificial intelligence during EFITA.",
     tags: ["Artificial Intelligence", "Engineering"]
   }
 ];
@@ -28,7 +28,7 @@ const PROFESSIONAL_TRAINING = [
     id: "portswigger",
     institution: "PortSwigger",
     title: "Web Security Academy",
-    period: "Continuous",
+    period: "2026 — Ongoing",
     description: "Practical study and laboratory challenges focusing on server-side and client-side web vulnerabilities.",
     tags: ["SQL Injection", "XSS", "Authentication", "Access Control"]
   }
@@ -39,16 +39,15 @@ const KNOWLEDGE_AREAS = [
     id: "owasp",
     title: "OWASP Top 10",
     description: "Study and practical application of the main risks affecting modern web applications and their mitigation strategies.",
-    tags: ["Application Security", "Vulnerability Assessment", "Secure Coding"]
+    tags: ["Application Security", "Vulnerability Assessment", "Web Security"]
   }
 ];
 
-const CONTINUOUS_LEARNING = [
-  "Microsoft Learn",
-  "Cisco Networking Academy",
-  "AWS Skill Builder",
-  "Google Cloud Skills Boost",
-  "Coursera"
+const CURRENTLY_STUDYING = [
+  "Application Security",
+  "Cloud Fundamentals",
+  "Computer Networks",
+  "Software Architecture"
 ];
 
 export default function CertificationsPage() {
@@ -71,10 +70,10 @@ export default function CertificationsPage() {
           transition={{ duration: 0.6 }}
         >
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">
-            Certifications
+            Learning & Credentials
           </h1>
           <p className="text-lg md:text-xl text-slate-400 max-w-2xl leading-relaxed font-light">
-            Academic achievements, cybersecurity training and continuous professional development.
+            Academic milestones, technical training and continuous professional development.
           </p>
         </motion.div>
       </section>
@@ -184,10 +183,10 @@ export default function CertificationsPage() {
           </div>
         </section>
 
-        {/* 4. CONTINUOUS LEARNING */}
+        {/* 4. CURRENTLY STUDYING */}
         <section>
           <h2 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-8 border-b border-white/5 pb-4">
-            Continuous Learning
+            Currently Studying
           </h2>
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -195,12 +194,12 @@ export default function CertificationsPage() {
             viewport={{ once: true }}
             className="flex flex-wrap gap-4"
           >
-            {CONTINUOUS_LEARNING.map((platform, index) => (
+            {CURRENTLY_STUDYING.map((topic, index) => (
               <div 
                 key={index}
                 className="px-6 py-4 rounded-xl bg-[#0a0a0a] border border-white/5 hover:border-white/10 transition-colors text-sm font-medium text-slate-300"
               >
-                {platform}
+                {topic}
               </div>
             ))}
           </motion.div>
