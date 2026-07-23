@@ -1,34 +1,21 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, Database, Server, Cloud, Beaker, Ship, FolderGit2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, Database, Cloud, Beaker, Ship, FolderGit2, ExternalLink } from "lucide-react";
 import Link from "next/link";
 
 const PROJECTS = [
   {
-    id: "sped",
-    title: "Motor SPED",
-    category: "Fiscal & Data Engineering",
-    description: "Motor de processamento e análise de arquivos SPED Fiscal. Automatiza a leitura, validação e consolidação de mais de 120 arquivos por mês, eliminando o trabalho manual e gerando relatórios via Power BI.",
-    techs: ["Python", "FastAPI", "TypeScript", "Power BI"],
+    id: "conciliador-sped",
+    title: "ConciliadorVALE (Motor SPED)",
+    category: "Corporate Automation",
+    description: "Plataforma corporativa full-stack para reconciliação fiscal. Automatiza a leitura, validação e consolidação de mais de 120 arquivos SPED por mês, eliminando o trabalho manual e gerando relatórios via Power BI.",
+    techs: ["Python", "FastAPI", "React", "Power BI"],
     icon: Database,
     color: "text-emerald-400",
     bgColor: "bg-emerald-500/10",
     borderColor: "border-emerald-500/20",
     link: "/projects/sped",
-    status: "Production"
-  },
-  {
-    id: "conciliador",
-    title: "ConciliadorVALE",
-    category: "Corporate Automation",
-    description: "Plataforma corporativa full-stack para reconciliação fiscal. Integra rotinas de extração de dados e validação de regras de negócio específicas da área de tributos da companhia.",
-    techs: ["FastAPI", "React", "Python", "Vercel"],
-    icon: Server,
-    color: "text-blue-400",
-    bgColor: "bg-blue-500/10",
-    borderColor: "border-blue-500/20",
-    link: "/projects/conciliador",
     status: "Production"
   },
   {
@@ -54,7 +41,7 @@ const PROJECTS = [
     color: "text-amber-400",
     bgColor: "bg-amber-500/10",
     borderColor: "border-amber-500/20",
-    link: "#", // Se tivermos a página depois, trocamos o link
+    link: "https://lab-movimento.vercel.app/",
     status: "Live"
   },
   {
@@ -108,56 +95,66 @@ export default function ProjectsPage() {
       <section className="px-4 max-w-5xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           
-          {PROJECTS.map((project, index) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-            >
-              <Link 
-                href={project.link}
-                className={`group block p-8 rounded-3xl bg-[#0a0a0a] border border-white/5 hover:border-white/20 transition-all h-full flex flex-col justify-between shadow-xl ${project.link === '#' ? 'cursor-default' : 'cursor-pointer'}`}
+          {PROJECTS.map((project, index) => {
+            const isExternal = project.link.startsWith("http");
+            
+            return (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
               >
-                <div>
-                  <div className="flex justify-between items-start mb-6">
-                    <div className={`w-12 h-12 rounded-xl ${project.bgColor} flex items-center justify-center border ${project.borderColor}`}>
-                      <project.icon className={`w-6 h-6 ${project.color}`} />
+                <Link 
+                  href={project.link}
+                  target={isExternal ? "_blank" : undefined}
+                  rel={isExternal ? "noopener noreferrer" : undefined}
+                  className={`group block p-8 rounded-3xl bg-[#0a0a0a] border border-white/5 hover:border-white/20 transition-all h-full flex flex-col justify-between shadow-xl ${project.link === '#' ? 'cursor-default' : 'cursor-pointer'}`}
+                >
+                  <div>
+                    <div className="flex justify-between items-start mb-6">
+                      <div className={`w-12 h-12 rounded-xl ${project.bgColor} flex items-center justify-center border ${project.borderColor}`}>
+                        <project.icon className={`w-6 h-6 ${project.color}`} />
+                      </div>
+                      <div className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs font-medium text-slate-400">
+                        {project.status}
+                      </div>
                     </div>
-                    <div className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs font-medium text-slate-400">
-                      {project.status}
+                    
+                    <div className="mb-2">
+                      <span className="text-xs font-bold uppercase tracking-wider text-slate-500">{project.category}</span>
+                      <h3 className="text-2xl font-bold text-white mt-1 group-hover:text-emerald-400 transition-colors">{project.title}</h3>
                     </div>
+                    
+                    <p className="text-slate-400 text-sm leading-relaxed mb-8">
+                      {project.description}
+                    </p>
                   </div>
-                  
-                  <div className="mb-2">
-                    <span className="text-xs font-bold uppercase tracking-wider text-slate-500">{project.category}</span>
-                    <h3 className="text-2xl font-bold text-white mt-1 group-hover:text-emerald-400 transition-colors">{project.title}</h3>
-                  </div>
-                  
-                  <p className="text-slate-400 text-sm leading-relaxed mb-8">
-                    {project.description}
-                  </p>
-                </div>
 
-                <div>
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {project.techs.map((tech, i) => (
-                      <span key={i} className="px-2 py-1 bg-[#050505] border border-white/10 rounded text-xs text-slate-300">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                  
-                  {project.link !== '#' && (
-                    <div className="flex items-center gap-2 text-sm font-bold text-white group-hover:text-emerald-400 transition-colors">
-                      View Case Study <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <div>
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      {project.techs.map((tech, i) => (
+                        <span key={i} className="px-2 py-1 bg-[#050505] border border-white/10 rounded text-xs text-slate-300">
+                          {tech}
+                        </span>
+                      ))}
                     </div>
-                  )}
-                </div>
-              </Link>
-            </motion.div>
-          ))}
+                    
+                    {project.link !== '#' && (
+                      <div className="flex items-center gap-2 text-sm font-bold text-white group-hover:text-emerald-400 transition-colors">
+                        {isExternal ? (
+                          <>Visit Live Site <ExternalLink className="w-4 h-4 ml-1" /></>
+                        ) : (
+                          <>View Case Study <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" /></>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </Link>
+              </motion.div>
+            );
+          })}
 
         </div>
       </section>
