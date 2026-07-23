@@ -3,11 +3,11 @@
 /**
  * @file SpedPage.tsx
  * @description Apresentação do Motor de Processamento Fiscal.
- * Foco em Negócios, Fluxo de Processamento, Valor Gerado e Case de Engenharia.
+ * Foco em Negócios, Decisões de Engenharia e Principais Aprendizados.
  */
 
 import { motion } from "framer-motion";
-import { ArrowLeft, ArrowDown, FileText, BarChart, ServerOff, Timer, Layers, Cpu, FileSpreadsheet, CheckCircle, Database, Lock, Zap, BookOpen } from "lucide-react";
+import { ArrowLeft, ArrowDown, FileText, BarChart, ServerOff, Timer, Layers, Cpu, FileSpreadsheet, CheckCircle2, Zap, BookOpen, Maximize, Blocks } from "lucide-react";
 import Link from "next/link";
 
 export default function SpedPage() {
@@ -49,66 +49,83 @@ export default function SpedPage() {
 
       <div className="max-w-5xl mx-auto px-4 space-y-40 pb-40">
 
-        {/* 2. COMO O SISTEMA ENTENDE O SPED (Fluxo de Interpretação) */}
+        {/* 2. FLUXO DE PROCESSAMENTO (Diagrama Estilo Árvore) */}
         <motion.section 
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           className="text-center"
         >
-          <h2 className="text-3xl font-bold text-white mb-16">Fluxo de Interpretação e Processamento</h2>
+          <h2 className="text-3xl font-bold text-white mb-16">Fluxo de Processamento</h2>
           
-          <div className="flex flex-col items-center relative font-mono text-sm">
+          <div className="flex flex-col items-center relative font-sans">
             
-            {/* Bloco Inicial: O Arquivo Bruto */}
-            <div className="w-80 p-6 rounded-2xl border border-white/10 bg-white/5 shadow-xl">
-              <div className="flex items-center justify-center gap-2 mb-4 text-slate-300 font-sans font-semibold text-lg">
-                <FileText className="w-5 h-5 text-emerald-500" /> Arquivo SPED
-              </div>
-              <div className="flex flex-wrap justify-center gap-2 text-emerald-400/70">
-                <span>0000</span>•<span>0150</span>•<span>0200</span>•<span>C100</span>•<span>C170</span>•<span>C190</span>•<span>E100</span>•<span>E110</span>
-              </div>
+            {/* Arquivo SPED */}
+            <div className="w-80 p-5 rounded-2xl border border-emerald-500/30 bg-emerald-500/10 shadow-[0_0_30px_rgba(16,185,129,0.1)] flex items-center justify-center gap-3">
+              <FileText className="w-6 h-6 text-emerald-400" />
+              <span className="font-bold text-white text-lg tracking-wide uppercase">Arquivo SPED</span>
             </div>
             
-            <div className="h-10 w-px bg-emerald-500/50 my-2" />
-            <ArrowDown className="text-emerald-500 w-5 h-5 mb-2" />
+            <div className="h-10 w-px bg-emerald-500/50" />
+            <ArrowDown className="text-emerald-500 w-5 h-5 -mt-2 mb-2" />
             
-            {/* Pipeline de Processamento */}
-            <div className="w-80 space-y-3 font-sans">
-              <div className="p-4 rounded-xl border border-emerald-500/20 bg-emerald-500/5 text-white font-medium shadow-md">
-                Leitura do arquivo textual
-              </div>
-              <ArrowDown className="text-emerald-500/50 w-4 h-4 mx-auto" />
-              
-              <div className="p-4 rounded-xl border border-emerald-500/20 bg-emerald-500/5 text-white font-medium shadow-md">
-                Reconhecimento dos registros
-              </div>
-              <ArrowDown className="text-emerald-500/50 w-4 h-4 mx-auto" />
-
-              <div className="p-4 rounded-xl border border-emerald-500/20 bg-emerald-500/5 text-white font-medium shadow-md">
-                Relacionamento entre blocos
-              </div>
-              <ArrowDown className="text-emerald-500/50 w-4 h-4 mx-auto" />
-
-              <div className="p-4 rounded-xl border border-emerald-500/20 bg-emerald-500/5 text-white font-medium shadow-md">
-                Consolidação de dados
-              </div>
+            {/* Leitura e Interpretação */}
+            <div className="w-80 p-4 rounded-xl border border-white/10 bg-white/5 text-white font-medium shadow-md">
+              Leitura e Interpretação
             </div>
 
-            <div className="h-10 w-px bg-gradient-to-b from-emerald-500/50 to-white/10 my-2" />
-            <ArrowDown className="text-slate-500 w-5 h-5 mb-2" />
+            <div className="h-10 w-px bg-emerald-500/50" />
+            <ArrowDown className="text-emerald-500 w-5 h-5 -mt-2 mb-2" />
 
-            {/* Outputs */}
-            <div className="flex gap-6 mt-2 font-sans">
-               <div className="w-40 p-5 rounded-2xl border border-white/10 bg-white/5 flex flex-col items-center justify-center gap-3 shadow-xl">
-                 <div className="p-3 rounded-xl bg-slate-800 text-slate-300"><FileSpreadsheet className="w-6 h-6" /></div>
-                 <span className="font-semibold text-white">Relatórios</span>
-               </div>
-               <div className="w-40 p-5 rounded-2xl border border-yellow-500/20 bg-yellow-500/5 flex flex-col items-center justify-center gap-3 shadow-xl">
-                 <div className="p-3 rounded-xl bg-yellow-500/20 text-yellow-500"><BarChart className="w-6 h-6" /></div>
-                 <span className="font-semibold text-white">Power BI</span>
-               </div>
+            {/* Extração dos Blocos */}
+            <div className="w-80 p-4 rounded-xl border border-white/10 bg-white/5 text-white font-medium shadow-md">
+              Extração dos Blocos Fiscais
             </div>
+
+            <div className="h-10 w-px bg-emerald-500/50" />
+            <ArrowDown className="text-emerald-500 w-5 h-5 -mt-2 mb-2" />
+
+            {/* Consolidação */}
+            <div className="w-80 p-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-white font-bold shadow-md">
+              Consolidação das Informações
+            </div>
+
+            <div className="h-10 w-px bg-emerald-500/50" />
+            
+            {/* A Bifurcação (Relatórios vs Dashboard) */}
+            <div className="w-full max-w-md relative flex justify-center">
+                {/* Linha Horizontal Topo */}
+                <div className="absolute top-0 w-64 h-px bg-emerald-500/50" />
+                
+                <div className="flex w-full justify-between px-10 pt-4">
+                    {/* Ramo Esquerdo: Excel */}
+                    <div className="flex flex-col items-center relative">
+                        <div className="absolute -top-4 w-px h-4 bg-emerald-500/50" />
+                        <ArrowDown className="text-emerald-500 w-5 h-5 mb-3 -mt-1" />
+                        <div className="w-36 p-4 rounded-2xl border border-white/10 bg-white/5 flex flex-col items-center justify-center gap-2 shadow-xl hover:border-emerald-500/30 transition-colors">
+                            <FileSpreadsheet className="w-6 h-6 text-slate-300" />
+                            <div className="text-center">
+                                <p className="font-semibold text-white text-sm">Relatórios</p>
+                                <p className="text-xs text-slate-400">Excel</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Ramo Direito: Power BI */}
+                    <div className="flex flex-col items-center relative">
+                        <div className="absolute -top-4 w-px h-4 bg-emerald-500/50" />
+                        <ArrowDown className="text-emerald-500 w-5 h-5 mb-3 -mt-1" />
+                        <div className="w-36 p-4 rounded-2xl border border-yellow-500/20 bg-yellow-500/5 flex flex-col items-center justify-center gap-2 shadow-xl hover:border-yellow-500/30 transition-colors">
+                            <BarChart className="w-6 h-6 text-yellow-500" />
+                            <div className="text-center">
+                                <p className="font-semibold text-white text-sm">Dashboard</p>
+                                <p className="text-xs text-yellow-500/70">Power BI</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
           </div>
         </motion.section>
 
@@ -156,12 +173,57 @@ export default function SpedPage() {
           </div>
         </motion.section>
 
-        {/* 4. RESULTADOS (Números Gigantes) */}
+        {/* 4. DECISÕES DE ENGENHARIA */}
         <motion.section 
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
         >
+          <h2 className="text-3xl font-bold text-white mb-10">Decisões de Engenharia</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+             {/* Stateless */}
+             <div className="p-8 rounded-2xl bg-[#0f1411] border border-white/5 hover:border-emerald-500/30 transition-colors">
+                <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-6 text-emerald-400">
+                  <ServerOff className="w-6 h-6" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">Processamento Stateless</h3>
+                <p className="text-slate-400 leading-relaxed text-sm">
+                  Arquivos são processados temporariamente, sem armazenamento persistente, reduzindo riscos relacionados à retenção de dados sensíveis.
+                </p>
+             </div>
+
+             {/* Escalabilidade */}
+             <div className="p-8 rounded-2xl bg-[#0f1411] border border-white/5 hover:border-emerald-500/30 transition-colors">
+                <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-6 text-emerald-400">
+                  <Maximize className="w-6 h-6" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">Escalabilidade</h3>
+                <p className="text-slate-400 leading-relaxed text-sm">
+                  A arquitetura foi projetada para processar múltiplos arquivos de forma independente, facilitando futuras expansões.
+                </p>
+             </div>
+
+             {/* Estrutura Modular */}
+             <div className="p-8 rounded-2xl bg-[#0f1411] border border-white/5 hover:border-emerald-500/30 transition-colors">
+                <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-6 text-emerald-400">
+                  <Blocks className="w-6 h-6" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">Estrutura Modular</h3>
+                <p className="text-slate-400 leading-relaxed text-sm">
+                  Separação clara entre leitura, interpretação, validação e geração de relatórios para facilitar a manutenção e evolução da aplicação.
+                </p>
+             </div>
+          </div>
+        </motion.section>
+
+        {/* 5. RESULTADOS GERADOS */}
+        <motion.section 
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          <h2 className="text-3xl font-bold text-white mb-10 text-center">Resultados Gerados</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                <div className="p-8 rounded-3xl bg-white/5 border border-white/10 text-center hover:border-emerald-500/30 transition-colors">
                   <h3 className="text-5xl md:text-6xl font-bold text-white mb-4">120<span className="text-emerald-500">+</span></h3>
@@ -178,62 +240,7 @@ export default function SpedPage() {
           </div>
         </motion.section>
 
-        {/* 5. DESAFIOS TÉCNICOS (Cards Corporativos) */}
-        <motion.section 
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-        >
-          <h2 className="text-3xl font-bold text-white mb-10">Desafios Técnicos Solucionados</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-             {/* Processamento */}
-             <div className="p-8 rounded-2xl bg-[#0f1411] border border-white/5 hover:border-emerald-500/30 transition-colors">
-                <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-6 text-emerald-400">
-                  <Cpu className="w-6 h-6" />
-                </div>
-                <h3 className="text-xl font-bold text-white mb-3">Processamento de arquivos</h3>
-                <p className="text-slate-400 leading-relaxed">
-                  Implementação de uma rotina capaz de interpretar arquivos SPED compostos por diferentes blocos fiscais, preservando a hierarquia entre registros durante o processamento.
-                </p>
-             </div>
-
-             {/* Estrutura */}
-             <div className="p-8 rounded-2xl bg-[#0f1411] border border-white/5 hover:border-emerald-500/30 transition-colors">
-                <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-6 text-emerald-400">
-                  <Database className="w-6 h-6" />
-                </div>
-                <h3 className="text-xl font-bold text-white mb-3">Estrutura dos dados</h3>
-                <p className="text-slate-400 leading-relaxed">
-                  Desenvolvimento de uma estratégia para transformar registros textuais soltos em informações solidamente estruturadas para a geração automática de relatórios.
-                </p>
-             </div>
-
-             {/* Performance */}
-             <div className="p-8 rounded-2xl bg-[#0f1411] border border-white/5 hover:border-emerald-500/30 transition-colors">
-                <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-6 text-emerald-400">
-                  <Zap className="w-6 h-6" />
-                </div>
-                <h3 className="text-xl font-bold text-white mb-3">Performance</h3>
-                <p className="text-slate-400 leading-relaxed">
-                  Otimização severa do fluxo de processamento para reduzir significativamente o tempo de análise dos arquivos, lidando com milhares de linhas em segundos.
-                </p>
-             </div>
-
-             {/* Segurança */}
-             <div className="p-8 rounded-2xl bg-[#0f1411] border border-white/5 hover:border-emerald-500/30 transition-colors">
-                <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-6 text-emerald-400">
-                  <Lock className="w-6 h-6" />
-                </div>
-                <h3 className="text-xl font-bold text-white mb-3">Segurança & Privacidade</h3>
-                <p className="text-slate-400 leading-relaxed">
-                  Desenho de uma arquitetura <i>stateless</i> com processamento estritamente temporário dos arquivos, evitando a persistência e retenção de dados sensíveis da empresa.
-                </p>
-             </div>
-          </div>
-        </motion.section>
-
-        {/* 6. LIÇÕES APRENDIDAS (Fechamento) */}
+        {/* 6. PRINCIPAIS APRENDIZADOS (Fechamento) */}
         <motion.section 
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -241,13 +248,24 @@ export default function SpedPage() {
           className="border-t border-white/10 pt-16"
         >
           <div className="bg-emerald-950/20 border border-emerald-500/20 rounded-3xl p-8 md:p-12">
-            <div className="flex items-center gap-4 mb-6">
+            <div className="flex items-center gap-4 mb-8">
               <BookOpen className="w-8 h-8 text-emerald-400" />
-              <h2 className="text-2xl font-bold text-white">Lições Aprendidas</h2>
+              <h2 className="text-2xl font-bold text-white">Principais Aprendizados</h2>
             </div>
-            <p className="text-slate-300 text-lg leading-relaxed">
-              Durante esse projeto, aprofundei consideravelmente meus conhecimentos em arquitetura de aplicações web, técnicas avançadas de processamento de arquivos estruturados, integração de dados com Power BI, desenvolvimento full-stack robusto e aplicação prática de princípios de segurança no processamento de dados fiscais sigilosos.
-            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {[
+                  "Arquitetura de aplicações web para processamento de dados.",
+                  "Modelagem de fluxos para documentos fiscais estruturados.",
+                  "Desenvolvimento de soluções full stack orientadas à automação.",
+                  "Boas práticas de segurança e privacidade no tratamento de dados."
+                ].map((aprendizado, i) => (
+                  <div key={i} className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+                      <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
+                      <span className="text-slate-300 leading-relaxed">{aprendizado}</span>
+                  </div>
+                ))}
+            </div>
           </div>
         </motion.section>
 
