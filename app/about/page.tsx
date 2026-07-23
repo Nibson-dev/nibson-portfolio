@@ -1,205 +1,166 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowLeft, Terminal, Cpu, Shield, Database, GraduationCap, Briefcase, Award, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, Code2, Zap, Brain, Mail } from "lucide-react";
 import Link from "next/link";
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-[#050505] text-slate-300 font-sans selection:bg-emerald-500/30">
+    <main className="min-h-screen bg-[#050505] text-slate-300 font-sans selection:bg-emerald-500/30 pb-20">
       
-      {/* 1. NAVEGAÇÃO */}
+      {/* NAV */}
       <nav className="fixed top-0 left-0 w-full z-50 px-6 py-6 flex justify-between items-center bg-[#050505]/80 backdrop-blur-md border-b border-white/5">
         <Link href="/" className="group flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
           <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
           <span className="text-sm font-medium">Voltar para Home</span>
         </Link>
-        <Link href="/" className="text-white font-bold text-lg tracking-tighter">
-          NIBSON<span className="text-emerald-500">.DEV</span>
-        </Link>
       </nav>
 
-      {/* 2. BIO EXECUTIVE SUMMARY */}
+      {/* 1. HERO PESSOAL E DIRETO */}
       <section className="pt-40 pb-20 px-4 max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-xs font-bold tracking-widest uppercase">
-            <Terminal className="w-4 h-4" />
-            Background & Mindset
-          </div>
-
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-8 tracking-tight leading-tight">
-            Engenharia elétrica, software e <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-500">resolução de problemas complexos.</span>
+          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">
+            Olá, sou o <span className="text-emerald-500">Nibson</span>.
           </h1>
+          <p className="text-xl md:text-2xl font-medium text-slate-300 mb-6">
+            Desenvolvedor de Software & Estudante de Engenharia Elétrica.
+          </p>
+          <p className="text-lg text-slate-400 leading-relaxed max-w-3xl">
+            Estudo Engenharia Elétrica na Universidade Federal do Pará (UFPA) e atuo desenvolvendo soluções que unem automação, desenvolvimento de software e análise de dados. Meu foco é construir ferramentas que resolvam problemas reais e simplifiquem rotinas complexas, sempre buscando entender a fundo a regra de negócio antes de escrever a primeira linha de código.
+          </p>
+        </motion.div>
+      </section>
 
-          <div className="space-y-6 text-lg md:text-xl text-slate-400 leading-relaxed font-light">
-            <p>
-              Sou estudante de Engenharia Elétrica na Universidade Federal do Pará (UFPA) e desenvolvo soluções que unem automação de processos, desenvolvimento de software full-stack e análise de dados para resolver problemas reais e críticos de negócios.
-            </p>
-            <p>
-              Minha trajetória foi construída na interseção entre o rigor acadêmico da engenharia e a agilidade do desenvolvimento de software corporativo. Em vez de apenas escrever código, foco em entender o domínio do problema — seja compliance tributário, conciliação financeira ou modelagem de dados — para arquitetar soluções escaláveis, seguras e com baixo custo de manutenção.
-            </p>
-            <p>
-              Tenho interesse profundo e atuação contínua em arquitetura de sistemas, processamento de dados em larga escala, cybersecurity e aplicações práticas de inteligência artificial.
-            </p>
+      {/* 2. TIMELINE CONCRETA COM DATAS */}
+      <section className="px-4 max-w-4xl mx-auto mb-24">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="bg-[#0a0a0a] border border-white/5 rounded-3xl p-8 md:p-12"
+        >
+          <h2 className="text-2xl font-bold text-white mb-10 border-b border-white/5 pb-4">Minha Trajetória</h2>
+          
+          <div className="space-y-12 relative before:absolute before:inset-0 before:ml-2 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-white/10 before:to-transparent">
+            
+            {/* VALE */}
+            <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+              <div className="flex items-center justify-center w-5 h-5 rounded-full border-2 border-[#0a0a0a] bg-emerald-500 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-[0_0_10px_rgba(16,185,129,0.4)] z-10"></div>
+              <div className="w-[calc(100%-2.5rem)] md:w-[calc(50%-1.25rem)] p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-emerald-500/30 transition-colors">
+                <div className="flex flex-col mb-2">
+                  <span className="text-emerald-400 text-sm font-bold tracking-wider">2023 — Presente</span>
+                  <h3 className="font-bold text-white text-lg">Desenvolvedor Estagiário</h3>
+                  <span className="text-slate-400 text-sm">Vale</span>
+                </div>
+                <p className="text-slate-400 text-sm leading-relaxed">
+                  Criação do ConciliadorVALE. Atuei diretamente no desenvolvimento de um sistema em Python e FastAPI para automatizar a leitura e validação de arquivos fiscais (SPED), processando os dados para geração de painéis no Power BI.
+                </p>
+              </div>
+            </div>
+
+            {/* BASA */}
+            <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+              <div className="flex items-center justify-center w-5 h-5 rounded-full border-2 border-[#0a0a0a] bg-slate-600 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10"></div>
+              <div className="w-[calc(100%-2.5rem)] md:w-[calc(50%-1.25rem)] p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-white/20 transition-colors">
+                <div className="flex flex-col mb-2">
+                  <span className="text-slate-400 text-sm font-bold tracking-wider">2022 — 2023</span>
+                  <h3 className="font-bold text-white text-lg">Estagiário de Tecnologia</h3>
+                  <span className="text-slate-400 text-sm">Banco da Amazônia (BASA)</span>
+                </div>
+                <p className="text-slate-400 text-sm leading-relaxed">
+                  Atuação no setor de tecnologia da matriz, apoiando as equipes internas na sustentação de rotinas de TI, análise de sistemas e vivência prática em ambiente corporativo bancário.
+                </p>
+              </div>
+            </div>
+
+            {/* LACOS */}
+            <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+              <div className="flex items-center justify-center w-5 h-5 rounded-full border-2 border-[#0a0a0a] bg-slate-600 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10"></div>
+              <div className="w-[calc(100%-2.5rem)] md:w-[calc(50%-1.25rem)] p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-white/20 transition-colors">
+                <div className="flex flex-col mb-2">
+                  <span className="text-slate-400 text-sm font-bold tracking-wider">2021 — 2022</span>
+                  <h3 className="font-bold text-white text-lg">Pesquisador (LACOS)</h3>
+                  <span className="text-slate-400 text-sm">Laboratório de Computação Científica</span>
+                </div>
+                <p className="text-slate-400 text-sm leading-relaxed">
+                  Desenvolvimento de simuladores e modelagem matemática, unindo conceitos de Ciência da Computação e Engenharia Elétrica para resolver problemas numéricos.
+                </p>
+              </div>
+            </div>
+
+            {/* PIBIC & UFPA */}
+            <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+              <div className="flex items-center justify-center w-5 h-5 rounded-full border-2 border-[#0a0a0a] bg-slate-600 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10"></div>
+              <div className="w-[calc(100%-2.5rem)] md:w-[calc(50%-1.25rem)] p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-white/20 transition-colors">
+                <div className="flex flex-col mb-2">
+                  <span className="text-slate-400 text-sm font-bold tracking-wider">2020</span>
+                  <h3 className="font-bold text-white text-lg">Início na UFPA & PIBIC</h3>
+                  <span className="text-slate-400 text-sm">Universidade Federal do Pará</span>
+                </div>
+                <p className="text-slate-400 text-sm leading-relaxed">
+                  Ingresso no curso de Engenharia Elétrica e atuação como bolsista de Iniciação Científica, focando no estudo de física aplicada e eletromagnetismo.
+                </p>
+              </div>
+            </div>
+
           </div>
         </motion.div>
       </section>
 
-      {/* 3. A TIMELINE DE EVOLUÇÃO (Estilo Apple) */}
-      <section className="py-20 px-4 max-w-4xl mx-auto border-t border-white/10">
-        <div className="mb-16">
-          <h2 className="text-3xl font-bold text-white mb-2">Linha do Tempo</h2>
-          <p className="text-slate-400">A jornada contínua entre academia, pesquisa e mercado corporativo.</p>
-        </div>
-
-        <div className="relative border-l border-emerald-500/30 ml-4 md:ml-32 space-y-16">
-          
-          {/* Item 1: Hoje */}
-          <div className="relative pl-8 md:pl-12 group">
-            <div className="absolute -left-3 top-1 w-6 h-6 rounded-full bg-emerald-500 border-4 border-[#050505] flex items-center justify-center shadow-[0_0_15px_rgba(16,185,129,0.5)]">
-              <div className="w-1.5 h-1.5 rounded-full bg-black" />
+      {/* 3. ÁREAS DE ATUAÇÃO E INTERESSE */}
+      <section className="px-4 max-w-4xl mx-auto mb-24">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <h2 className="text-2xl font-bold text-white mb-8 border-b border-white/5 pb-4">Áreas de atuação e interesse</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="p-6 rounded-2xl bg-[#0a0a0a] border border-white/5 flex flex-col gap-4">
+              <Code2 className="w-8 h-8 text-emerald-500" />
+              <h3 className="font-bold text-white">Full-Stack Development</h3>
+              <p className="text-sm text-slate-400 leading-relaxed">
+                Desenvolvimento de aplicações web e rotinas de backend com foco em Python (FastAPI, Flask) e JavaScript (React).
+              </p>
             </div>
-            <span className="md:absolute md:-left-32 top-1 text-xs font-mono uppercase tracking-widest text-emerald-400 font-bold block mb-1 md:mb-0">
-              Hoje
-            </span>
-            <h3 className="text-xl font-bold text-white">Engenheiro de Software & Desenvolvedor Full-Stack</h3>
-            <p className="text-sm text-slate-500 mb-2 font-mono">Foco em Arquitetura, Compliance e Automação</p>
-            <p className="text-slate-400 text-sm leading-relaxed max-w-xl">
-              Desenvolvimento contínuo de motores de processamento de dados (como o Motor SPED) e ecossistemas financeiros autônomos (Project Nexus), aplicando clean architecture e zero-trust.
-            </p>
+            <div className="p-6 rounded-2xl bg-[#0a0a0a] border border-white/5 flex flex-col gap-4">
+              <Zap className="w-8 h-8 text-emerald-500" />
+              <h3 className="font-bold text-white">Automação e Dados</h3>
+              <p className="text-sm text-slate-400 leading-relaxed">
+                Criação de fluxos para automatizar tarefas operacionais repetitivas e processar dados estruturados para análise no Power BI.
+              </p>
+            </div>
+            <div className="p-6 rounded-2xl bg-[#0a0a0a] border border-white/5 flex flex-col gap-4">
+              <Brain className="w-8 h-8 text-emerald-500" />
+              <h3 className="font-bold text-white">Engenharia Aplicada</h3>
+              <p className="text-sm text-slate-400 leading-relaxed">
+                Interesse contínuo na interseção entre software e engenharia física, incluindo eletromagnetismo, circuitos e termodinâmica.
+              </p>
+            </div>
           </div>
-
-          {/* Item 2: PIBIC */}
-          <div className="relative pl-8 md:pl-12 group">
-            <div className="absolute -left-2.5 top-1 w-5 h-5 rounded-full bg-[#0a0f0d] border-2 border-emerald-500/50 group-hover:border-emerald-400 transition-colors" />
-            <span className="md:absolute md:-left-32 top-1 text-xs font-mono uppercase tracking-widest text-slate-500 block mb-1 md:mb-0">
-              Pesquisa
-            </span>
-            <h3 className="text-xl font-bold text-white">PIBIC — Pesquisa Científica</h3>
-            <p className="text-sm text-slate-500 mb-2 font-mono">Universidade Federal do Pará</p>
-            <p className="text-slate-400 text-sm leading-relaxed max-w-xl">
-              Aprofundamento na resolução de problemas complexos, modelagem matemática, análise de dados e aplicação de método científico na engenharia de sistemas.
-            </p>
-          </div>
-
-          {/* Item 3: BASA */}
-          <div className="relative pl-8 md:pl-12 group">
-            <div className="absolute -left-2.5 top-1 w-5 h-5 rounded-full bg-[#0a0f0d] border-2 border-emerald-500/50 group-hover:border-emerald-400 transition-colors" />
-            <span className="md:absolute md:-left-32 top-1 text-xs font-mono uppercase tracking-widest text-slate-500 block mb-1 md:mb-0">
-              Corporativo
-            </span>
-            <h3 className="text-xl font-bold text-white">Banco da Amazônia (BASA)</h3>
-            <p className="text-sm text-slate-500 mb-2 font-mono">Tecnologia, Dados & Rotinas Institucionais</p>
-            <p className="text-slate-400 text-sm leading-relaxed max-w-xl">
-              Vivência corporativa em ambiente financeiro de grande porte. Atuação com análise de dados, rotinas de tecnologia e otimização de fluxos de trabalho institucionais.
-            </p>
-          </div>
-
-          {/* Item 4: Vale */}
-          <div className="relative pl-8 md:pl-12 group">
-            <div className="absolute -left-2.5 top-1 w-5 h-5 rounded-full bg-[#0a0f0d] border-2 border-emerald-500/50 group-hover:border-emerald-400 transition-colors" />
-            <span className="md:absolute md:-left-32 top-1 text-xs font-mono uppercase tracking-widest text-slate-500 block mb-1 md:mb-0">
-              Corporativo
-            </span>
-            <h3 className="text-xl font-bold text-white">Vale</h3>
-            <p className="text-sm text-slate-500 mb-2 font-mono">Automação de Processos & Compliance Fiscal</p>
-            <p className="text-slate-400 text-sm leading-relaxed max-w-xl">
-              Desenvolvimento de ferramentas de reconciliação fiscal (ConciliadorVALE) utilizando Python e automação de fluxos para otimizar a conferência de arquivos SPED e notas fiscais.
-            </p>
-          </div>
-
-          {/* Item 5: LACOS */}
-          <div className="relative pl-8 md:pl-12 group">
-            <div className="absolute -left-2.5 top-1 w-5 h-5 rounded-full bg-[#0a0f0d] border-2 border-emerald-500/50 group-hover:border-emerald-400 transition-colors" />
-            <span className="md:absolute md:-left-32 top-1 text-xs font-mono uppercase tracking-widest text-slate-500 block mb-1 md:mb-0">
-              Laboratório
-            </span>
-            <h3 className="text-xl font-bold text-white">LACOS</h3>
-            <p className="text-sm text-slate-500 mb-2 font-mono">Laboratório de Computação Científica</p>
-            <p className="text-slate-400 text-sm leading-relaxed max-w-xl">
-              Desenvolvimento de algoritmos, simulações numéricas e computação aplicada a problemas de engenharia e física.
-            </p>
-          </div>
-
-          {/* Item 6: UFPA */}
-          <div className="relative pl-8 md:pl-12 group">
-            <div className="absolute -left-2.5 top-1 w-5 h-5 rounded-full bg-[#0a0f0d] border-2 border-emerald-500/50 group-hover:border-emerald-400 transition-colors" />
-            <span className="md:absolute md:-left-32 top-1 text-xs font-mono uppercase tracking-widest text-slate-500 block mb-1 md:mb-0">
-              Graduação
-            </span>
-            <h3 className="text-xl font-bold text-white">Universidade Federal do Pará (UFPA)</h3>
-            <p className="text-sm text-slate-500 mb-2 font-mono">Bacharelado em Engenharia Elétrica</p>
-            <p className="text-slate-400 text-sm leading-relaxed max-w-xl">
-              Formação de base sólida em cálculo avançado, física, circuitos elétricos, sistemas embarcados e computação.
-            </p>
-          </div>
-
-        </div>
+        </motion.div>
       </section>
 
-      {/* 4. OS QUATRO PILARES DE ATUAÇÃO */}
-      <section className="py-20 px-4 max-w-4xl mx-auto border-t border-white/10">
-        <h2 className="text-3xl font-bold text-white mb-12">Pilares de Engenharia</h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="p-6 rounded-2xl bg-[#0a0f0d] border border-white/5 space-y-3">
-            <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400">
-              <Cpu className="w-5 h-5" />
-            </div>
-            <h3 className="text-lg font-bold text-white">Sistemas & Arquitetura</h3>
-            <p className="text-sm text-slate-400 leading-relaxed">
-              Foco na construção de sistemas desacoplados, arquiteturas orientadas a eventos (EDA) e processamento em memória para alta performance.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-2xl bg-[#0a0f0d] border border-white/5 space-y-3">
-            <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400">
-              <Database className="w-5 h-5" />
-            </div>
-            <h3 className="text-lg font-bold text-white">Engenharia de Dados & BI</h3>
-            <p className="text-sm text-slate-400 leading-relaxed">
-              Tradução de grandes volumes de dados brutos (OFX, XML, SPED) em relatórios executivos e dashboards interativos no Power BI.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-2xl bg-[#0a0f0d] border border-white/5 space-y-3">
-            <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400">
-              <Shield className="w-5 h-5" />
-            </div>
-            <h3 className="text-lg font-bold text-white">Cybersecurity & Zero-Trust</h3>
-            <p className="text-sm text-slate-400 leading-relaxed">
-              Aplicação de princípios de privacidade por design, validação estrita de inputs e redução da superfície de ataque em aplicações web.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-2xl bg-[#0a0f0d] border border-white/5 space-y-3">
-            <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400">
-              <Terminal className="w-5 h-5" />
-            </div>
-            <h3 className="text-lg font-bold text-white">Automação de Processos</h3>
-            <p className="text-sm text-slate-400 leading-relaxed">
-              Criação de scripts e rotinas em Python para eliminar trabalho manual repetitivo, economizando centenas de horas em operações fiscais e financeiras.
-            </p>
-          </div>
-        </div>
+      {/* 4. CTAs MANTIDOS */}
+      <section className="px-4 max-w-4xl mx-auto text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+        >
+          <Link href="/projects" className="w-full sm:w-auto px-8 py-4 rounded-full bg-emerald-500 text-black font-bold hover:bg-emerald-400 transition-colors flex items-center justify-center gap-2">
+            Ver meus projetos <ArrowRight className="w-4 h-4" />
+          </Link>
+          <Link href="/contact" className="w-full sm:w-auto px-8 py-4 rounded-full bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition-colors flex items-center justify-center gap-2">
+            Entrar em contato <Mail className="w-4 h-4" />
+          </Link>
+        </motion.div>
       </section>
-
-      {/* 5. RODAPÉ / CTA */}
-      <footer className="border-t border-white/5 py-12 px-4 bg-[#0a0a0a] text-center mt-20">
-        <p className="text-slate-400 mb-6">Pronto para conhecer os casos práticos de engenharia?</p>
-        <div className="flex justify-center gap-4">
-          <Link href="/experience" className="px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white text-sm font-medium transition-colors">
-            Ver Experiência Corporativa
-          </Link>
-          <Link href="/projects" className="px-6 py-3 rounded-full bg-emerald-500 hover:bg-emerald-400 text-black text-sm font-bold transition-colors">
-            Explorar Projetos
-          </Link>
-        </div>
-      </footer>
 
     </main>
   );
